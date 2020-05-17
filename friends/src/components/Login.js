@@ -1,64 +1,47 @@
-import React from "react";
+import React, { useState } from "react"; //import useState
 import axios from "axios";
 
-class Login extends React.Component {
-  state = {
-    credentials: {
-      username: "",
-      password: ""
-    }
-  };
+const Login = (props) => { //using hooks // props from the route(App.js)
+ 
+  const [username, setUsername] = useState('') 
+  const [password, setPassword]= useState('')
 
-  handleChange = e => {
-    this.setState({
-      credentials: {
-        ...this.state.credentials,
-        [e.target.name]: e.target.value
-      }
-    });
-  };
+ console.log(props)
 
-  login = e => {
+  const login = e => {
     e.preventDefault();
     //Make a POST request and send the credentials object to the api
-    axios.post('http://localhost:5000/api', this.state.credentials)
-    .then(res => {
-      window.localStorage.setItem('token', res.data.payload);
-    })//token under aplication is not showing //unable to login keep getting errors
-    .catch(err => console.log(err))
+    axios
+      .post('http://localhost:5000/api/login', {username, password} )
+      .then(res => (localStorage.setItem('token', res.data.payload), console.log(res))) //first consolelog res, 
+      .catch(err => console.log(err.message))
 
-    // axiosWithAuth()
-    //   .post("/login", this.state.credentials)
-    //   .then(res => {
-    //     localStorage.setItem("token", res.data.payload);
-    //     this.props.history.push("/protected");
-    //   })
-    //   .catch(err => {
-    //     console.log("Err is: ", err);
-    //   });
+      props.history.push('/protected')
+   
+
   };
 
-  render() {
+  
     return (
       <div>
-        <form onSubmit={this.login}>
+        <form onSubmit={login}>
           <input
             type="text"
-            name="username"
-            value={this.state.credentials.username}
-            onChange={this.handleChange}
+            // name="username" nolonger needed because we arent using a single object for state
+            // value={this.state.credentials.username} nolonger needed because we arent using a single object for state
+            onChange={(e) => setUsername(e.target.value)} //need a function to take in the value (function)
           />
           <input
             type="password"
-            name="password"
-            value={this.state.credentials.password}
-            onChange={this.handleChange}
+            // name="password"
+            // value={this.state.credentials.password}
+            onChange={(e) => setPassword(e.target.value)}// callback func that returns setPassord being invoked, then give it a value
           />
           <button>Log in</button>
         </form>
       </div>
     );
-  }
+  
 }
 
 export default Login;

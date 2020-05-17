@@ -9,7 +9,7 @@ import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
-    <Router>
+    
       <div className="App">
         <ul>
           <li>
@@ -20,12 +20,12 @@ function App() {
           </li>
         </ul>
         <Switch>
-          <PrivateRoute exact path="/protected" component={FriendsList} />
-          <Route path="/login" component={Login} />
+          <PrivateRoute exact path="/protected" Component={FriendsList} />
+          <Route path="/login" render={(props) => <Login {...props} /> } /> {/*need to render, run a func that returns it, it gives us router props (history, match, location) */}
           <Route component={Login} />
         </Switch>
       </div>
-   </Router>
+ 
   );
 }
 
