@@ -26,7 +26,7 @@ const FriendsList = () => {
       <div>
          <FriendForm setFriendsList = {setFriendsList}/> 
         {friendsList && friendsList.map(friend => (
-          <Link to={`/friends/${friend.id}`}>
+          <Link to={`/protected/${friend.id}`}>
             <h1 key={friend.id} >{friend.name}</h1>
           </Link>
         )) }

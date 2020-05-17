@@ -21,10 +21,10 @@ function App() {
           </li>
         </ul>
         <Switch>
-          <PrivateRoute path="/protected" Component={FriendsList} />
+          <PrivateRoute exact path="/protected" Component={FriendsList} />
           <Route exact path="/" render={(props) => <Login {...props} /> } /> {/*need to render, run a func that returns it, it gives us router props (history, match, location) */}
           <Route component={Login} />
-          <Route path="/friends/:id" render={(props) => <Friend {...props} test='test' /> } />
+          <Route path="/protected/:id" render={(props) => <Friend {...props} test='test' /> } />
         </Switch>
       </div>
  
