@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import Login from "./components/Login"
 import FriendsList from "./components/FriendsList";
 import PrivateRoute from "./components/PrivateRoute";
+import Friend from './components/Friend';
 
 function App() {
   return (
@@ -20,9 +21,10 @@ function App() {
           </li>
         </ul>
         <Switch>
-          <PrivateRoute exact path="/protected" Component={FriendsList} />
-          <Route path="/login" render={(props) => <Login {...props} /> } /> {/*need to render, run a func that returns it, it gives us router props (history, match, location) */}
+          <PrivateRoute path="/protected" Component={FriendsList} />
+          <Route exact path="/" render={(props) => <Login {...props} /> } /> {/*need to render, run a func that returns it, it gives us router props (history, match, location) */}
           <Route component={Login} />
+          <Route path="/friends/:id" render={(props) => <Friend {...props} test='test' /> } />
         </Switch>
       </div>
  
