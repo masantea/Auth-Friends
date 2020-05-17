@@ -1,6 +1,6 @@
 import React from "react";
 import {useState, useEffect} from 'react';
-import axios from "axios";
+import AxiosWithAuth from "./AxiosWithAuth";
 
 
 const FriendsList = () => {
@@ -9,15 +9,15 @@ const FriendsList = () => {
 
   useEffect(() => {
 
-    axios
+    AxiosWithAuth()
       .get('http://localhost:5000/api/friends')
-      .then(res => console.log(res))
+      .then(res => setFriendsList(res.data))
       .catch(err => console.log(err.message))
   }, [])
 
     return (
       <div>
-        
+        {friendsList && friendsList.map(friend => <h1 key={friend.id} >{friend.name}</h1>) }
       </div>
       
     );
